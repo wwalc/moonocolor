@@ -1,0 +1,8 @@
+name: CKEditor Moono Color
+type: module
+description: This plugin replaces the default Moono skin in CKEditor with Moono Color
+core: 8.x
+package: CKEditor
+version: VERSION
+dependencies:
+  - ckeditor

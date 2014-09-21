@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Provides Moono Color skin for CKEditor WYSIWYG editor.
+ * See http://ckeditor.com/addon/moonocolor
+ *
+ * Enforcing globally the moonocolor skin is by design.
+ * CKEditor itself does not support changing skins on the fly,
+ * It means that setting skin per text format would not work anyway,
+ */
+
+/**
+ * Implements hook_editor_js_settings_alter
+ * @param array $settings
+ */
+function moonocolor_editor_js_settings_alter(array &$settings) {
+  if (empty($settings['editor']['formats']))
+    return;
+  foreach ($settings['editor']['formats'] as $format => $setting) {
+    // http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-skin
+    // When setting config.skin it is possible to specify custom skin location after a comma.
+    if ($setting['editor'] == 'ckeditor')
+      $settings['editor']['formats'][$format]['editorSettings']['skin'] = 'moonocolor,' . base_path() . drupal_get_path('module', 'moonocolor') . '/js/skins/moonocolor/';
+  }
+}
